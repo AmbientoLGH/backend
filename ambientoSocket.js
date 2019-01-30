@@ -1,14 +1,10 @@
-let http            = require("http").Server(),
-    socketIO        = require("socket.io")(http),
-    configuration   = require("./config"),
-    listener        = {},
+let socketIO,
+    configuration       = require("./config"),
+    listener            = {},
 
-    pythonModule    = undefined,
-    espModules      = [];
-
-function startSocket() {
-    return new Promise((resolve)=>http.listen(configuration.socket.port,resolve));
-}
+    pythonModule        = undefined,
+    espModules          = [],
+    dashboardModules    = [];
 
 function addListener(type,callback) {
     if(typeof listener[type] === "undefined") listener[type] = [];
@@ -31,6 +27,8 @@ function startClientListener() {
             switch(type) {
                 case "python": pythonModule = socket; initializePythonModule(); break;
                 case "esp": espModules.push(socket); break;
+                case "dashboard": dashboardModules.push(socket); break;
+                case "android": break;
                 default: console.log("Unknown device type...");
             }
         });
@@ -48,9 +46,14 @@ function initializePythonModule() {
     });
 }
 
+function initializeSocket(http) {
+    socketIO = require("socket.io")(http);
+}
+
 module.exports = {
-    startSocket,
     addListener,
     broadcastListenerData,
-    startClientListener
+    startClientListener,
+    initializeSocket,
+    dashboardModules
 };

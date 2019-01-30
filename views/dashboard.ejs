@@ -1,0 +1,49 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Ambiento - Dashboard</title>
+
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/fonts/Raleway/font.css">
+    <link rel="stylesheet" href="/assets/plugins/MaterialDesignLight/css/materialdesignicons-light.css">
+    <script src="/assets/plugins/socketio/socket.io.js"></script>
+    <script src="/assets/plugins/jquery/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+    <div id="grid">
+        <div class="sidebar">Sidebar</div>
+        <div class="content">
+            <div class="box">
+                <div class="title">Ambiento Graph</div>
+                <div class="graph">
+                    <div class="item" style="height: 50%"></div>
+                    <div class="item" style="height: 80%"></div>
+                    <div class="item" style="height: 10%"></div>
+                    <div class="item" style="height: 30%"></div>
+                    <div class="item" style="height: 45%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const socket = io('http://localhost:3000');
+        socket.emit("device",{type:"dashboard"});
+
+        socket.on("ambiento",function(data) {
+            var value = (data.value)/10;
+            if(value>100) value = 100;
+            if(value<0) value = 0;
+            var div = jQuery('<div/>', {
+                class: 'item'
+            });
+
+            $(".graph").prepend(div);
+
+            var item = $(".graph .item").first();
+            item.animate({"height":value+"%"});
+
+            if($(".graph .item").length>38) $(".graph .item").last().remove();
+        });
+    </script>
+</body>
+</html>

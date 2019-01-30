@@ -1,0 +1,59 @@
+body,html {
+    font-family: "Raleway", sans-serif;
+    padding: 5px;
+    margin: 0;
+    background: linear-gradient(to right, #4a4b5e, #33333f);
+}
+
+*,*:after,*:before {
+    box-sizing: border-box;
+}
+
+#grid {
+    margin: 50px auto;
+    display: flex;
+    flex-direction: row;
+    max-width: 1300px;
+}
+
+#grid .sidebar {
+    flex: 0 0 300px;
+}
+
+#grid .content {
+    flex: 1;
+}
+
+#grid .content .box {
+    border-radius: 6px;
+    background: rgba(0,0,0,0.2);
+    padding: 25px 30px;
+}
+
+#grid .content .box .title {
+    color: #64657f;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+#grid .content .box .graph {
+    white-space: nowrap;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+    height: 250px;
+    overflow-x: hidden;
+}
+
+#grid .content .box .graph .item {
+    background-color: #4a4b5e;
+    width: 20px;
+    margin: 0 2px;
+    min-height: 2px;
+    border-radius: 3px 3px 0 0;
+    transition: height .01s ease 0s;
+}
