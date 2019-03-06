@@ -9,8 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
-    "socket.io": "^2.2.0"
+    "rainbowvis.js": "^1.0.1",
+    "socket.io": "^2.2.0",
+    "spotify-web-api-node": "^4.0.0"
   }
 }
